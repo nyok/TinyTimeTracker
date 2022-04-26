@@ -1,4 +1,4 @@
-## SimpleTimeTracker
+## Tiny Time Tracker
 
 This a simple time tracking application. Supports two working modes: "Work" and "Rest" and is able to save statistics to a file.
 
