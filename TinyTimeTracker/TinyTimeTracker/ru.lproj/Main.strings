@@ -1,0 +1,27 @@
+
+/* Class = "NSMenuItem"; title = "TinyTimeTracker"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "TinyTimeTracker";
+
+/* Class = "NSMenuItem"; title = "Quit TinyTimeTracker"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Quit TinyTimeTracker";
+
+/* Class = "NSMenuItem"; title = "startStop"; ObjectID = "7jy-7W-QRC"; */
+"7jy-7W-QRC.title" = "startStop";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSMenuItem"; title = "restTimer"; ObjectID = "dmx-g4-gzN"; */
+"dmx-g4-gzN.title" = "restTimer";
+
+/* Class = "NSMenuItem"; title = "quit"; ObjectID = "u81-b3-YS7"; */
+"u81-b3-YS7.title" = "quit";
+
+/* Class = "NSMenu"; title = "TinyTimeTracker"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "TinyTimeTracker";
+
+/* Class = "NSMenuItem"; title = "workTimer"; ObjectID = "vBU-JN-kRD"; */
+"vBU-JN-kRD.title" = "workTimer";
+
+/* Class = "NSMenuItem"; title = "changeMode"; ObjectID = "zcj-5o-7BO"; */
+"zcj-5o-7BO.title" = "changeMode";

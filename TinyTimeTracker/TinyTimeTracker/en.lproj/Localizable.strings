@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  TinyTimeTracker
+*/
+
+"menuTextStart" = "Start";
+"menuTextStop" = "Stop";
+"menuTextChangemode" = "Change mode";
+"menuTextStatistics" = "Statistics";
+"menuTextQuit" = "Quit";
+"textWork" = "Work";
+"textRest" = "Rest";
+"logMessageCreate" = "File created";
+"logMessageStart" = "Timer started";
+"logMessageStop" = "Timer stopped";
+"errorMessageWrite" = "Can't create and write";
+"errorMessageOpen" = "Can't open file";

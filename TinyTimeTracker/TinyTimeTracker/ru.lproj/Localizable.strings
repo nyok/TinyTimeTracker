@@ -1,0 +1,17 @@
+/*
+  Localizable.strings
+  TinyTimeTracker
+*/
+
+"menuTextStart" = "Старт";
+"menuTextStop" = "Стоп";
+"menuTextChangemode" = "Сменить режим";
+"menuTextStatistics" = "Статистика";
+"menuTextQuit" = "Выход";
+"textWork" = "Работа";
+"textRest" = "Безделье";
+"logMessageCreate" = "Файл создан";
+"logMessageStart" = "Таймер запущен";
+"logMessageStop" = "Таймер остановлен";
+"errorMessageWrite" = "Не могу создать или записать в файл";
+"errorMessageOpen" = "Не могу открыть файл";
