@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     let iconWork = NSImage(named:NSImage.Name("IconWork"))
     let iconRest = NSImage(named:NSImage.Name("IconRest"))
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    var localDate = Date().currentTimeZoneDate()
 
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var startStopMenuItem: NSMenuItem!
@@ -37,12 +38,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             stopAllTimer()
             saveStats(logMessage: workTimerMenuItem.title + "\n")
             saveStats(logMessage: restTimerMenuItem.title + "\n")
-            let logMessage = NSLocalizedString("logMessageStop", comment: "") + ": " + String("\(NSDate())\n")
+            let logMessage = NSLocalizedString("logMessageStop", comment: "") + ": " + String("\(localDate)\n")
             saveStats(logMessage: logMessage)
             statusItem.button?.image = icon
         }
         else {
-            let logMessage = "\n" + NSLocalizedString("logMessageStart", comment: "") + ": " + String("\(NSDate())\n")
+            let logMessage = "\n" + NSLocalizedString("logMessageStart", comment: "") + ": " + String("\(localDate)\n")
             saveStats(logMessage: logMessage)
             workTimerMenuItem.title = NSLocalizedString("textWork", comment: "") + String(": 00:00:00")
             restTimerMenuItem.title = NSLocalizedString("textRest", comment: "") + String(": 00:00:00")
@@ -75,7 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             stopAllTimer()
             saveStats(logMessage: workTimerMenuItem.title + "\n")
             saveStats(logMessage: restTimerMenuItem.title + "\n")
-            let logMessage = NSLocalizedString("logMessageStop", comment: "") + " " + String("\(NSDate())\n")
+            let logMessage = NSLocalizedString("logMessageStop", comment: "") + " " + String("\(localDate)\n")
             saveStats(logMessage: logMessage)
         }
         NSApp.terminate(self)
@@ -223,7 +224,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 statisticsMenuItem.title = NSLocalizedString("errorMessageWrite", comment: "") + " " + logFile.path
             }
         } else {
-            let logMessage = NSLocalizedString("logMessageCreate", comment: "") + ": " + String("\(NSDate())\n") + logMessage
+            let logMessage = NSLocalizedString("logMessageCreate", comment: "") + ": " + String("\(localDate)\n") + logMessage
             do {
                 try logMessage.write(to: logFile, atomically: true, encoding: String.Encoding.utf8)
             } catch {
@@ -233,3 +234,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 }
 
+extension Date {
+    func currentTimeZoneDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
+        return dateFormatter.string(from: self)
+    }
+}
