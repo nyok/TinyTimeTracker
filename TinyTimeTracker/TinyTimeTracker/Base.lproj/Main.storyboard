@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -12,6 +12,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TinyTimeTracker" customModuleProvider="target">
                     <connections>
                         <outlet property="changeModeMenuItem" destination="zcj-5o-7BO" id="VId-mH-dfZ"/>
+                        <outlet property="launchAtLoginMenuItem" destination="kHe-cK-j9E" id="YjN-ax-Q9e"/>
                         <outlet property="quitMenuItem" destination="u81-b3-YS7" id="Def-Kc-Oyv"/>
                         <outlet property="restTimerMenuItem" destination="dmx-g4-gzN" id="9Vc-8P-9Np"/>
                         <outlet property="startStopMenuItem" destination="k7j-Rw-Pdr" id="bR1-t9-XIO"/>
@@ -67,6 +68,13 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="statisticsClicked:" target="Voe-Tx-rLC" id="JYZ-uM-3hx"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="uas-QH-cD5"/>
+                        <menuItem title="launchAtLogin" id="kHe-cK-j9E">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="launchAtLoginClicked:" target="Voe-Tx-rLC" id="ibo-Dk-ZVX"/>
                             </connections>
                         </menuItem>
                         <menuItem title="quit" keyEquivalent="q" id="u81-b3-YS7">

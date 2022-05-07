@@ -7,6 +7,7 @@
 "menuTextStop" = "Стоп";
 "menuTextChangemode" = "Сменить режим";
 "menuTextStatistics" = "Статистика";
+"menuTextLaunchAtLogin" = "Запускать при старте";
 "menuTextQuit" = "Выход";
 "textWork" = "Работа";
 "textRest" = "Безделье";

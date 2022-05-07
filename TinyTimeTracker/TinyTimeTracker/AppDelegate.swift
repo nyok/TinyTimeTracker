@@ -4,6 +4,7 @@
 //
 
 import Cocoa
+import LaunchAtLogin
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
@@ -28,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var statisticsMenuItem: NSMenuItem!
     @IBOutlet weak var workTimerMenuItem: NSMenuItem!
     @IBOutlet weak var restTimerMenuItem: NSMenuItem!
+    @IBOutlet weak var launchAtLoginMenuItem: NSMenuItem!
     @IBOutlet weak var quitMenuItem: NSMenuItem!
 
     @IBAction func startStopClicked(_ sender: NSMenuItem) {
@@ -59,6 +61,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         NSWorkspace.shared.open(logFile)
     }
 
+    @IBAction func launchAtLoginClicked(_ sender: NSMenuItem) {
+        sender.state = sender.state == .on ? .off : .on
+        if sender.state == .on {
+            LaunchAtLogin.isEnabled = true
+        } else {
+            LaunchAtLogin.isEnabled = false
+        }
+    }
+
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         if(appRunning) {
             stopAllTimer()
@@ -71,13 +82,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        icon?.isTemplate = true
-        iconWork?.isTemplate = true
-        iconRest?.isTemplate = true
-        changeModeMenuItem.title = NSLocalizedString("menuTextChangemode", comment: "")
-        
-        statisticsMenuItem.title = NSLocalizedString("menuTextStatistics", comment: "")
-        quitMenuItem.title = NSLocalizedString("menuTextQuit", comment: "")
         createStatusMenu()
     }
 
@@ -90,7 +94,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func createStatusMenu() {
         statusItem.button?.image = icon
+        icon?.isTemplate = true
+        iconWork?.isTemplate = true
+        iconRest?.isTemplate = true
         statusItem.menu = statusMenu
+        if LaunchAtLogin.isEnabled {
+            launchAtLoginMenuItem.state = .on
+        } else {
+            launchAtLoginMenuItem.state = .off
+        }
+        changeModeMenuItem.title = NSLocalizedString("menuTextChangemode", comment: "")
+        statisticsMenuItem.title = NSLocalizedString("menuTextStatistics", comment: "")
+        launchAtLoginMenuItem.title = NSLocalizedString("menuTextLaunchAtLogin", comment: "")
+        quitMenuItem.title = NSLocalizedString("menuTextQuit", comment: "")
     }
 
     func menuWillOpen(_: NSMenu) {
