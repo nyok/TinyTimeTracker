@@ -22,7 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     let iconWork = NSImage(named:NSImage.Name("IconWork"))
     let iconRest = NSImage(named:NSImage.Name("IconRest"))
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    var localDate = Date().currentTimeZoneDate()
 
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var startStopMenuItem: NSMenuItem!
@@ -34,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var quitMenuItem: NSMenuItem!
 
     @IBAction func startStopClicked(_ sender: NSMenuItem) {
+        let localDate = Date().currentTimeZoneDate()
         if(appRunning) {
             stopAllTimer()
             saveStats(logMessage: workTimerMenuItem.title + "\n")
@@ -72,6 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
+        let localDate = Date().currentTimeZoneDate()
         if(appRunning) {
             stopAllTimer()
             saveStats(logMessage: workTimerMenuItem.title + "\n")
@@ -214,6 +215,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func saveStats(logMessage: String) {
         let logFile = paths[0].appendingPathComponent(appName + ".txt")
+        let localDate = Date().currentTimeZoneDate()
         if FileManager.default.fileExists(atPath: logFile.path) {
             do {
                 let fileHandle = try FileHandle(forUpdating: logFile)
