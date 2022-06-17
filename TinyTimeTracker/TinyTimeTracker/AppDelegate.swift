@@ -8,7 +8,7 @@ import LaunchAtLogin
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
-    
+    let userDefaults = UserDefaults.standard
     let appName = Bundle.main.infoDictionary?["CFBundleName"] as! String
     var appRunning: Bool = false
     var appTimerWorkRunning: Bool = false
@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     let iconWork = NSImage(named:NSImage.Name("IconWork"))
     let iconRest = NSImage(named:NSImage.Name("IconRest"))
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let font = NSFont(name: "Helvetica", size: 12)
 
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var startStopMenuItem: NSMenuItem!
@@ -29,6 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var statisticsMenuItem: NSMenuItem!
     @IBOutlet weak var workTimerMenuItem: NSMenuItem!
     @IBOutlet weak var restTimerMenuItem: NSMenuItem!
+    @IBOutlet weak var settingsMenuItem: NSMenuItem!
+    @IBOutlet weak var showTimeTitleMenuItem: NSMenuItem!
     @IBOutlet weak var launchAtLoginMenuItem: NSMenuItem!
     @IBOutlet weak var quitMenuItem: NSMenuItem!
 
@@ -62,6 +65,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         NSWorkspace.shared.open(logFile)
     }
 
+    @IBAction func showTimeTitleClicked(_ sender: NSMenuItem) {
+        sender.state = sender.state == .on ? .off : .on
+        userDefaults.set(sender.state, forKey: "showTimeTitleMenuValue")
+    }
+
     @IBAction func launchAtLoginClicked(_ sender: NSMenuItem) {
         sender.state = sender.state == .on ? .off : .on
         if sender.state == .on {
@@ -84,6 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        userDefaults.register(defaults: ["showTimeTitleMenuValue": false])
         createStatusMenu()
     }
 
@@ -95,11 +104,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func createStatusMenu() {
+        statusItem.button!.font = font
         statusItem.button?.image = icon
+        statusItem.button?.imagePosition = NSControl.ImagePosition.imageRight
         icon?.isTemplate = true
         iconWork?.isTemplate = true
         iconRest?.isTemplate = true
         statusItem.menu = statusMenu
+        if userDefaults.bool(forKey: "showTimeTitleMenuValue") {
+            showTimeTitleMenuItem.state = .on
+        } else {
+            showTimeTitleMenuItem.state = .off
+        }
         if LaunchAtLogin.isEnabled {
             launchAtLoginMenuItem.state = .on
         } else {
@@ -107,6 +123,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         changeModeMenuItem.title = NSLocalizedString("menuTextChangemode", comment: "")
         statisticsMenuItem.title = NSLocalizedString("menuTextStatistics", comment: "")
+        settingsMenuItem.title = NSLocalizedString("menuTextSettings", comment: "")
+        showTimeTitleMenuItem.title = NSLocalizedString("menuTextShowTimeTitle", comment: "")
         launchAtLoginMenuItem.title = NSLocalizedString("menuTextLaunchAtLogin", comment: "")
         quitMenuItem.title = NSLocalizedString("menuTextQuit", comment: "")
     }
@@ -138,9 +156,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func startTimerWork() {
         appRunning = true
         appTimerWorkRunning = true
-        statusItem.button?.image = iconWork
         timerWork = Timer(
-            timeInterval: 1,
+            timeInterval: 0.3,
             target: self,
             selector: #selector(updateTextWorkTimerMenuItem),
             userInfo: nil,
@@ -155,14 +172,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         elapsedTimeWork += mSecond
         let hms = secToTime(sec: elapsedTimeWork)
         workTimerMenuItem.title = NSLocalizedString("textWork", comment: "") + String(": ") + hms
+        statusItem.button?.image = iconWork
+        if showTimeTitleMenuItem.state == .on {
+            let timeTitle = secToTimeTitle(sec: elapsedTimeWork)
+            statusItem.button?.title = timeTitle
+        } else {
+            statusItem.button?.title = ""
+        }
     }
 
     func startTimerRest() {
         appRunning = true
         appTimerRestRunning = true
-        statusItem.button?.image = iconRest
         timerRest = Timer(
-            timeInterval: 1,
+            timeInterval: 0.3,
             target: self,
             selector: #selector(updateTextRestTimerMenuItem),
             userInfo: nil,
@@ -177,6 +200,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         elapsedTimeRest += mSecond
         let hms = secToTime(sec: elapsedTimeRest)
         restTimerMenuItem.title = NSLocalizedString("textRest", comment: "") + String(": ") + hms
+        statusItem.button?.image = iconRest
+        if showTimeTitleMenuItem.state == .on {
+            let timeTitle = secToTimeTitle(sec: elapsedTimeRest)
+            statusItem.button?.title = timeTitle
+        } else {
+            statusItem.button?.title = ""
+        }
     }
 
     func secToTime(sec: Double) -> String {
@@ -185,6 +215,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         let seconds = Int(sec) % 60
         let hms = String(format:"%02i:%02i:%02i", hours, minutes, seconds)
         return hms
+    }
+    
+    func secToTimeTitle(sec: Double) -> String {
+        let hours = Int(sec) / 3600
+        let minutes = Int(sec) / 60 % 60
+        let hm = String(format:"%02i:%02i", hours, minutes)
+        return hm
     }
 
     func stopTimerWork() {
@@ -199,6 +236,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func stopAllTimer() {
         appRunning = false
+        statusItem.button?.title = ""
         stopTimerWork()
         stopTimerRest()
     }

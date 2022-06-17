@@ -7,6 +7,8 @@
 "menuTextStop" = "Stop";
 "menuTextChangemode" = "Change mode";
 "menuTextStatistics" = "Statistics";
+"menuTextSettings" = "Settings";
+"menuTextShowTimeTitle" = "Show time in menubar";
 "menuTextLaunchAtLogin" = "Launch at login";
 "menuTextQuit" = "Quit";
 "textWork" = "Work";

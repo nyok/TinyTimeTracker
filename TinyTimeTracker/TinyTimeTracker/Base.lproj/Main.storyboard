@@ -15,6 +15,8 @@
                         <outlet property="launchAtLoginMenuItem" destination="kHe-cK-j9E" id="YjN-ax-Q9e"/>
                         <outlet property="quitMenuItem" destination="u81-b3-YS7" id="Def-Kc-Oyv"/>
                         <outlet property="restTimerMenuItem" destination="dmx-g4-gzN" id="9Vc-8P-9Np"/>
+                        <outlet property="settingsMenuItem" destination="UQJ-fn-iel" id="xVL-mX-Z3K"/>
+                        <outlet property="showTimeTitleMenuItem" destination="DiI-su-7jD" id="gJm-Aq-LH2"/>
                         <outlet property="startStopMenuItem" destination="k7j-Rw-Pdr" id="bR1-t9-XIO"/>
                         <outlet property="statisticsMenuItem" destination="Ocu-KO-qAu" id="76e-D7-uq2"/>
                         <outlet property="statusMenu" destination="VwX-F4-3Ia" id="CUE-Ev-wU3"/>
@@ -71,12 +73,26 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="uas-QH-cD5"/>
-                        <menuItem title="launchAtLogin" id="kHe-cK-j9E">
+                        <menuItem title="settings" id="UQJ-fn-iel">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="launchAtLoginClicked:" target="Voe-Tx-rLC" id="ibo-Dk-ZVX"/>
-                            </connections>
+                            <menu key="submenu" id="Yz8-dx-ju2">
+                                <items>
+                                    <menuItem title="showTimeTitle" id="DiI-su-7jD">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="showTimeTitleClicked:" target="Voe-Tx-rLC" id="NA5-Uk-5gC"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="launchAtLogin" id="kHe-cK-j9E">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="launchAtLoginClicked:" target="Voe-Tx-rLC" id="ibo-Dk-ZVX"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="nXO-s1-g1x"/>
                         <menuItem title="quit" keyEquivalent="q" id="u81-b3-YS7">
                             <connections>
                                 <action selector="quitClicked:" target="Voe-Tx-rLC" id="tIy-Hj-ZOV"/>
